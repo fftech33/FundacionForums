@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundación Forums - Formularios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f9;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #222;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      margin: 0.9rem 0;
+    }
+    a {
+      display: block;
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #0070f3;
+      color: #fff;
+      font-weight: 600;
+      transition: background 0.2s ease-in-out;
+    }
+    a:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Formularios Fundación</h1>
+    <ul>
+      <li><a href="?f=1">Formulario de Registro</a></li>
+      <li><a href="?f=2">Ficha de Salud</a></li>
+      <li><a href="?f=3">Encuesta Comunitaria</a></li>
+      <li><a href="?f=4">Evaluación Familiar</a></li>
+    </ul>
+  </div>
+
+  <script>
+    // Mapa de redirecciones (ajusta los nombres a los archivos que ya subiste en tu repo)
+    const map = {
+      "1": "form-registro.html",
+      "2": "ficha-salud.html",
+      "3": "encuesta-comunitaria.html",
+      "4": "evaluacion-familiar.html"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get("f");
+
+    if (map[f]) {
+      // Redirige automáticamente al archivo HTML real
+      window.location.href = map[f];
+    }
+  </script>
+</body>
+</html>
