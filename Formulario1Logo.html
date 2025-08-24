@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Continuación Evaluación</title>
+  <style>
+    :root{
+      --ink:#111;
+      --muted:#666;
+      --line:#111;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      margin:0;
+      background:#f7f7f7;
+    }
+    .sheet{
+      max-width: 800px;
+      margin: 24px auto;
+      background:#fff;
+      padding: 28px 32px 36px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+    /* Encabezado con logo */
+    .header{display:flex; align-items:center; gap:16px; margin-bottom:16px}
+    .logo{width:100px; height:auto}
+    .title-block{flex:1; text-align:center}
+    .title-block h1{font-size:18px; margin:0; letter-spacing:.3px; text-transform:uppercase}
+
+    form{width:100%}
+    .row{display:flex; gap:16px; align-items:flex-end;}
+    .field{width:100%; margin:10px 0;}
+    .label{font-weight:600; margin-bottom:6px; display:block;}
+    .line-input, .short-line{
+      display:block; width:100%; border:none; border-bottom:1.6px solid var(--line);
+      padding:6px 4px; outline:none; font-size:14px; background:transparent
+    }
+    .short{max-width:280px}
+    .inline{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+    .radio-group{display:flex; gap:12px; align-items:center}
+    textarea{width:100%; min-height:70px; border:1.6px solid var(--line); padding:8px; resize:vertical; font-size:14px}
+    .section-title{font-weight:600; margin:14px 0 6px}
+    .signature-row{display:flex; gap:24px; margin-top:28px}
+    .signature{flex:1}
+    .signature .line{border-bottom:1.6px solid var(--line); height:28px}
+    .signature .caption{margin-top:6px; font-size:13px; color:var(--muted); text-align:center}
+    .footer-actions{display:flex; gap:10px; justify-content:flex-end; margin-top:24px}
+    button{padding:10px 14px; border:1px solid #111; background:#fff; cursor:pointer}
+    button.primary{background:#111; color:#fff}
+    @media print{
+      body{background:#fff}
+      .sheet{margin:0; box-shadow:none; border:none}
+      .footer-actions{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <!-- Encabezado con logo -->
+    <div class="header">
+      <img src="https://i.imgur.com/rV6z2TR.png" alt="Logo Fundación Pasos con Esperanza" class="logo">
+      <div class="title-block">
+        <h1>CONTINUACIÓN EVALUACIÓN</h1>
+      </div>
+    </div>
+
+    <form>
+      <!-- Ayuda económica -->
+      <div class="field">
+        <div class="label">¿Recibe algún tipo de ayuda económica?</div>
+        <div class="inline">
+          <label class="radio-group"><input type="radio" name="ayuda_economica" value="Si"> Sí</label>
+          <label class="radio-group"><input type="radio" name="ayuda_economica" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="de-quien">¿De quién recibe ayuda económica?</label>
+        <input class="line-input" id="de-quien" type="text" />
+      </div>
+
+      <!-- Familiar fuera del país -->
+      <div class="field">
+        <div class="label">¿Tiene familiar fuera del país? Si su respuesta es afirmativa, especifique ¿dónde?</div>
+        <div class="row">
+          <div class="inline" style="flex:0 0 auto; padding-bottom:6px">
+            <label class="radio-group"><input type="radio" name="familiar_fuera" value="Si"> Sí</label>
+            <label class="radio-group"><input type="radio" name="familiar_fuera" value="No"> No</label>
+          </div>
+          <input class="line-input" type="text" placeholder="Especifique el país/ciudad" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="parentesco">¿Qué parentesco tiene con usted?</label>
+        <input class="line-input" id="parentesco" type="text" />
+      </div>
+
+      <div class="field">
+        <label class="label" for="actitud">Actitud Emocional:</label>
+        <textarea id="actitud"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="relacion">Relación y Actividades Sociales:</label>
+        <textarea id="relacion"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="observaciones">Observaciones:</label>
+        <textarea id="observaciones"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="recomendaciones">Recomendaciones:</label>
+        <textarea id="recomendaciones"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="categoria">Categoría:</label>
+        <input class="line-input short" id="categoria" type="text" />
+      </div>
+
+      <div class="signature-row">
+        <div class="signature">
+          <div class="line"></div>
+          <div class="caption">Preparado Por</div>
+        </div>
+        <div class="signature">
+          <div class="line"></div>
+          <div class="caption">Autorizado Por</div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button type="reset">Limpiar</button>
+        <button type="button" class="primary" onclick="window.print()">Imprimir</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
