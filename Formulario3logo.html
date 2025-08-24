@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ficha de Calidad de Vivienda / Servicios Básicos</title>
+  <style>
+    :root{--ink:#111;--line:#000;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family: Arial,Helvetica,sans-serif;margin:0;background:#f7f7f7;color:var(--ink)}
+    .sheet{max-width:1000px;margin:24px auto;background:#fff;border:1px solid #ddd;box-shadow:0 2px 10px rgba(0,0,0,.06);padding:24px 28px}
+
+    /* Encabezado con logo a la izquierda y título */
+    .header {display:flex;align-items:center;gap:16px;margin-bottom:16px}
+    .logo{width:100px;height:auto}
+    .title-block{flex:1;text-align:center}
+    .title-block h1{font-size:20px;margin:0;text-transform:uppercase}
+    .title-block h2{font-size:13px;margin:4px 0 0 0;color:#222}
+
+    .instructions{font-size:13px;background:#fffbe6;border:1px solid #f0e1a0;padding:10px 12px;border-radius:6px;margin:8px 0 16px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{border:1px solid var(--line);padding:6px}
+    th{background:#f0f0f0;text-align:center}
+    td.item{width:46%}
+    td.puntos, th.puntos{width:80px;text-align:center;font-weight:600}
+    select, input[type="number"], input[type="text"]{width:100%;padding:6px 4px;border:0;background:transparent;outline:none;font-size:13px}
+    .group{margin-top:16px}
+    .legend{font-size:12px;color:var(--muted);margin-top:8px}
+    .totals{display:flex;gap:16px;align-items:center;justify-content:flex-end;margin-top:12px}
+    .totals .box{border:1px dashed #aaa;padding:8px 10px;border-radius:6px;background:#fafafa}
+    .totals strong{font-size:14px}
+    .footer-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+    button{padding:9px 14px;border:1px solid #111;background:#fff;cursor:pointer}
+    button.primary{background:#111;color:#fff}
+    @media print{
+      body{background:#fff}
+      .sheet{box-shadow:none;border:none;padding:0}
+      .footer-actions{display:none}
+      .instructions{border:none;background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <!-- Encabezado con logo e identificadores -->
+    <div class="header">
+      <img src="https://i.imgur.com/rV6z2TR.png" alt="Logo Fundación Pasos con Esperanza" class="logo">
+      <div class="title-block">
+        <h1>CARACTERÍSTICAS DE LA VIVIENDA / SERVICIOS BÁSICOS / CONDICIÓN ECONÓMICA</h1>
+        <h2>(Ficha de puntuación)</h2>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <strong>Instrucciones:</strong> Encierre en un círculo el número que corresponda en cada categoría y anote el puntaje obtenido en la columna final. <em>(En esta versión digital, seleccione una opción por fila y el puntaje se calculará automáticamente.)</em>
+    </div>
+
+    <form id="ficha">
+      <table id="tabla">
+        <thead>
+          <tr>
+            <th>Ítem</th>
+            <th>Opción seleccionada</th>
+            <th class="puntos">Puntos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tenencia de la Vivienda -->
+          <tr class="group"><th colspan="3">Tenencia de la Vivienda</th></tr>
+          <tr>
+            <td class="item">Tenencia de la vivienda</td>
+            <td>
+              <select class="score" data-row="tenencia">
+                <option value="">— Seleccione —</option>
+                <option value="5">Propia (5)</option>
+                <option value="3">Alquilada (3)</option>
+                <option value="2">Cedida/Prestada (2)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-tenencia"></td>
+          </tr>
+
+          <!-- Paredes / Techo / Piso -->
+          <tr class="group"><th colspan="3">Materiales de la Vivienda</th></tr>
+          <tr>
+            <td class="item">Paredes de la vivienda</td>
+            <td>
+              <select class="score" data-row="paredes">
+                <option value="">— Seleccione —</option>
+                <option value="10">Cemento / Block / Ladrillo (10)</option>
+                <option value="9">Madera (9)</option>
+                <option value="6">Asbesto cemento (6)</option>
+                <option value="5">Tabla de palma (5)</option>
+                <option value="4">Zinc (4)</option>
+                <option value="0">Tejamaní / Cartón / Desechos / Yagua (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-paredes"></td>
+          </tr>
+          <tr>
+            <td class="item">Techo de la vivienda</td>
+            <td>
+              <select class="score" data-row="techo">
+                <option value="">— Seleccione —</option>
+                <option value="10">Concreto (10)</option>
+                <option value="9">Asbesto cemento (9)</option>
+                <option value="0">Zinc / Caña / Yagua / Cartón / Desechos (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-techo"></td>
+          </tr>
+          <tr>
+            <td class="item">Piso de la vivienda</td>
+            <td>
+              <select class="score" data-row="piso">
+                <option value="">— Seleccione —</option>
+                <option value="10">Mosaico / Granito / Mármol / Cemento o Ladrillo (10)</option>
+                <option value="9">Madera (9)</option>
+                <option value="0">Tierra (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-piso"></td>
+          </tr>
+
+          <!-- Servicios sanitarios / Agua / Basura / Electricidad -->
+          <tr class="group"><th colspan="3">Servicios Básicos</th></tr>
+          <tr>
+            <td class="item">Servicios sanitarios</td>
+            <td>
+              <select class="score" data-row="sanitario">
+                <option value="">— Seleccione —</option>
+                <option value="10">Inodoro exclusivo (10)</option>
+                <option value="9">Letrina exclusiva (9)</option>
+                <option value="6">Inodoro colectivo (6)</option>
+                <option value="4">Letrina colectiva (4)</option>
+                <option value="0">En patio/monte o no tiene (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-sanitario"></td>
+          </tr>
+          <tr>
+            <td class="item">Agua (instalación)</td>
+            <td>
+              <select class="score" data-row="agua_inst">
+                <option value="">— Seleccione —</option>
+                <option value="9">Dentro de la vivienda y llega (9)</option>
+                <option value="8">Fuera de la vivienda y llega (8)</option>
+                <option value="0">Fuera de la vivienda y no llega (0)</option>
+                <option value="0">No tiene servicio de agua (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-agua_inst"></td>
+          </tr>
+          <tr>
+            <td class="item">Abastecimiento de agua</td>
+            <td>
+              <select class="score" data-row="agua_abast">
+                <option value="">— Seleccione —</option>
+                <option value="9">Acueducto y cisterna (9)</option>
+                <option value="8">Manantial (8)</option>
+                <option value="6">Río / Arroyo (6)</option>
+                <option value="5">Pozo / Camión (5)</option>
+                <option value="2">Lluvia / Tanque / Aljibe (2)</option>
+                <option value="0">No tiene (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-agua_abast"></td>
+          </tr>
+          <tr>
+            <td class="item">Eliminación de basura</td>
+            <td>
+              <select class="score" data-row="basura">
+                <option value="">— Seleccione —</option>
+                <option value="8">Recoge ayuntamiento / otra institución (8)</option>
+                <option value="7">La entierra (7)</option>
+                <option value="6">Quemada (6)</option>
+                <option value="0">Tirada en patio o en cañada (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-basura"></td>
+          </tr>
+          <tr>
+            <td class="item">Servicio de electricidad</td>
+            <td>
+              <select class="score" data-row="electricidad">
+                <option value="">— Seleccione —</option>
+                <option value="5">Tiene energía (CDE / inversor / planta) (5)</option>
+                <option value="0">No tiene (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-electricidad"></td>
+          </tr>
+          <tr>
+            <td class="item">Combustible de cocina</td>
+            <td>
+              <select class="score" data-row="combustible">
+                <option value="">— Seleccione —</option>
+                <option value="5">Gas propano / electricidad (5)</option>
+                <option value="4">Carbón (4)</option>
+                <option value="2">Leña (2)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-combustible"></td>
+          </tr>
+
+          <!-- Habitaciones, animales, vectores -->
+          <tr class="group"><th colspan="3">Condiciones del Hogar</th></tr>
+          <tr>
+            <td class="item">Número de dormitorios</td>
+            <td>
+              <select class="score" data-row="dormitorios">
+                <option value="">— Seleccione —</option>
+                <option value="9">Cuatro o más (9)</option>
+                <option value="8">Tres (8)</option>
+                <option value="5">Dos (5)</option>
+                <option value="0">Uno (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-dormitorios"></td>
+          </tr>
+          <tr>
+            <td class="item">Animales domésticos</td>
+            <td>
+              <select class="score" data-row="animales">
+                <option value="">— Seleccione —</option>
+                <option value="5">Sí (especifique) (5)</option>
+                <option value="0">No (0)</option>
+              </select>
+              <input type="text" name="animales_det" placeholder="Perro, gato, cerdo, otros (opcional)" />
+            </td>
+            <td class="puntos" id="pts-animales"></td>
+          </tr>
+          <tr>
+            <td class="item">Vectores (criaderos)</td>
+            <td>
+              <select class="score" data-row="vectores">
+                <option value="">— Seleccione —</option>
+                <option value="0">Sí (especifique) (0)</option>
+                <option value="5">No (5)</option>
+              </select>
+              <input type="text" name="vectores_det" placeholder="Mosquitos, ratones, moscas, cucarachas, otros (opcional)" />
+            </td>
+            <td class="puntos" id="pts-vectores"></td>
+          </tr>
+
+          <!-- Educación, trabajo, ingresos, dependientes -->
+          <tr class="group"><th colspan="3">Condición Socioeconómica</th></tr>
+          <tr>
+            <td class="item">Nivel educacional</td>
+            <td>
+              <select class="score" data-row="educacion">
+                <option value="">— Seleccione —</option>
+                <option value="5">Universitario (5)</option>
+                <option value="3">Educación intermedia (3)</option>
+                <option value="1">Educación primaria (1)</option>
+                <option value="0">Analfabeto (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-educacion"></td>
+          </tr>
+          <tr>
+            <td class="item">Trabajo</td>
+            <td>
+              <select class="score" data-row="trabajo">
+                <option value="">— Seleccione —</option>
+                <option value="3">Formal (3)</option>
+                <option value="2">Informal (2)</option>
+                <option value="0">No trabaja (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-trabajo"></td>
+          </tr>
+          <tr>
+            <td class="item">Total ingresos mensuales (RD$)</td>
+            <td>
+              <select class="score" data-row="ingresos">
+                <option value="">— Seleccione —</option>
+                <option value="5">Más de 150,000 (5)</option>
+                <option value="3">35,100 a 150,000 (3)</option>
+                <option value="2">25,100 a 35,000 (2)</option>
+                <option value="1">12,501 a 25,000 (1)</option>
+                <option value="0">0 a 12,500 (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-ingresos"></td>
+          </tr>
+          <tr>
+            <td class="item">Dependientes</td>
+            <td>
+              <select class="score" data-row="dependientes">
+                <option value="">— Seleccione —</option>
+                <option value="4">0–3 (4)</option>
+                <option value="2">4–7 (2)</option>
+                <option value="0">8 o más (0)</option>
+              </select>
+            </td>
+            <td class="puntos" id="pts-dependientes"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <div class="box"><strong>Puntuación total obtenida:</strong> <span id="total">0</span></div>
+        <div class="box"><strong>Calificación:</strong> <span id="calificacion">—</span> <span id="categoria"></span></div>
+      </div>
+
+      <div class="legend">
+        <strong>Rangos:</strong> Buena (Categoría A) = 108 o más puntos; Regular (Categoría B) = 75 a 107; Mala (Categoría C) = 74 o menos. <em>Rango total posible: 4 a 127 puntos.</em>
+      </div>
+
+      <div class="footer-actions">
+        <button type="reset" id="btnReset">Limpiar</button>
+        <button type="button" class="primary" onclick="window.print()">Imprimir</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function actualizar(){
+      let total = 0;
+      document.querySelectorAll('.score').forEach(sel=>{
+        const val = parseInt(sel.value||'0',10);
+        const id = sel.dataset.row;
+        const cell = document.getElementById('pts-'+id);
+        if (cell) cell.textContent = isNaN(val)?'':val;
+        if(!isNaN(val)) total += val;
+      });
+      document.getElementById('total').textContent = total;
+      // Calificación
+      let cal = '—', cat='';
+      if (total >= 108){ cal = 'Buena'; cat = '(Categoría A)'; }
+      else if (total >= 75){ cal = 'Regular'; cat = '(Categoría B)'; }
+      else { cal = 'Mala'; cat = '(Categoría C)'; }
+      document.getElementById('calificacion').textContent = cal;
+      document.getElementById('categoria').textContent = cat;
+    }
+    document.querySelectorAll('.score').forEach(s=> s.addEventListener('change', actualizar));
+    document.getElementById('btnReset').addEventListener('click', ()=>{
+      setTimeout(()=>{
+        document.querySelectorAll('[id^="pts-"]').forEach(c=> c.textContent='');
+        document.getElementById('total').textContent='0';
+        document.getElementById('calificacion').textContent='—';
+        document.getElementById('categoria').textContent='';
+      },0);
+    });
+  </script>
+</body>
+</html>
