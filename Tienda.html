@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café no se aun - No hay Slogan</title>
+    <title>Aroma Quisqueyano - El corazón del café dominicano</title>
 
     <link rel="icon" type="image/png" href="https://img.icons8.com/dusk/64/coffee-to-go.png">
 
@@ -12,14 +12,14 @@
 
     <style>
         :root {
-            --color-crema: #F5F5DC;
+            --color-cafe-claro: #D2B48C;
             --color-marron: #6F4E37;
             --color-verde-oscuro: #004225;
             --color-verde-claro: #556B2F;
         }
 
         body {
-            background-color: var(--color-crema);
+            background-color: var(--color-cafe-claro);
             font-family: 'Georgia', serif;
         }
 
@@ -28,7 +28,7 @@
         }
 
         .navbar-brand, .nav-link {
-            color: var(--color-crema) !important;
+            color: #F5F5DC !important;
             font-weight: bold;
         }
         
@@ -53,7 +53,7 @@
         }
 
         .card-title {
-            color: var(--color-marron);
+            color: var(--color-verde-oscuro); /* <-- Cambio aplicado aquí */
             font-weight: bold;
         }
 
@@ -71,14 +71,14 @@
 
         .footer {
             background-color: var(--color-marron);
-            color: var(--color-crema);
+            color: #F5F5DC;
             padding: 2rem 0;
             margin-top: 40px;
         }
 
         .modal-header{
              background-color: var(--color-marron);
-             color: var(--color-crema);
+             color: #F5F5DC;
         }
     </style>
 </head>
@@ -87,7 +87,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="#"><i class="bi bi-cup-hot-fill"></i> Café no se aun</a>
+                <a class="navbar-brand" href="#"><i class="bi bi-cup-hot-fill"></i> Aroma Quisqueyano</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
@@ -110,7 +110,7 @@
     </header>
 
     <main class="container my-5">
-        <h1 class="text-center mb-4" style="color: var(--color-marron);">Nuestra Selección de Cafés</h1>
+        <h1 class="text-center mb-4" style="color: var(--color-verde-oscuro);">Nuestra Selección de Cafés</h1>
         
         <div class="row">
             <aside class="col-lg-3">
@@ -144,7 +144,7 @@
 
     <footer class="footer">
         <div class="container text-center">
-            <p>&copy; 2025 Cafe No se aun. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Aroma Quisqueyano. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -155,8 +155,7 @@
                     <h5 class="modal-title"><i class="bi bi-cart3"></i> Tu Carrito de Compras</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="cart-body">
-                    </div>
+                <div class="modal-body" id="cart-body"></div>
                 <div class="modal-footer">
                     <h4>Total: <span id="cart-total">$0.00</span></h4>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button>
@@ -167,7 +166,7 @@
     </div>
 
     <div class="modal fade" id="paymentModal" tabindex="-1">
-         <div class="modal-dialog">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Métodos de Pago</h5>
@@ -187,7 +186,7 @@
     </div>
 
     <div class="modal fade" id="accountModal" tabindex="-1">
-         <div class="modal-dialog">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Crea tu Cuenta</h5>
@@ -208,19 +207,17 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // Base de datos de productos con imágenes de CDN
             const products = [
-                { id: 1, name: 'Starbucks Pike Place', price: 14.50, img: 'https://i.imgur.com/kK3hYv8.png', desc: 'Notas de cacao y nueces tostadas, balanceado y suave.' },
-                { id: 2, name: 'Starbucks Caffè Verona', price: 15.00, img: 'https://i.imgur.com/gO0w6l7.png', desc: 'Tostado oscuro con notas de cacao amargo y azúcar caramelizada.' },
-                { id: 3, name: 'Starbucks Blonde Espresso', price: 15.50, img: 'https://i.imgur.com/dK5uLgZ.png', desc: 'Tostado ligero, suave y dulcemente vibrante.' },
+                { id: 1, name: 'Starbucks Pike Place', price: 14.50, img: 'https://i.imgur.com/T0CxVfu.png', desc: 'Notas de cacao y nueces tostadas, balanceado y suave.' },
+                { id: 2, name: 'Starbucks Caffè Verona', price: 15.00, img: 'https://i.imgur.com/UZ8THz1.png', desc: 'Tostado oscuro con notas de cacao amargo y azúcar caramelizada.' },
+                { id: 3, name: 'Starbucks Blonde Espresso', price: 15.50, img: 'https://i.imgur.com/4CZnRsH.png', desc: 'Tostado ligero, suave y dulcemente vibrante.' },
                 { id: 4, name: 'Juan Valdez Sierra Nevada', price: 18.00, img: 'https://i.imgur.com/e7b8NCB.png', desc: 'Café orgánico con notas intensas a chocolate negro y nueces.' },
                 { id: 5, name: 'Juan Valdez Cumbre', price: 17.50, img: 'https://i.imgur.com/nnpAKCt.jpeg', desc: 'Tostado oscuro e intenso, ideal para un espresso perfecto.' },
-                { id: 6, name: 'Juan Valdez Antioquia', price: 16.80, img: 'https://i.imgur.com/49mN04g.png', desc: 'Balanceado con notas dulces a panela y frutos rojos.' }
+                { id: 6, name: 'Juan Valdez Antioquia', price: 16.80, img: 'https://i.imgur.com/udlO2KJ.jpeg', desc: 'Balanceado con notas dulces a panela y frutos rojos.' }
             ];
 
             const productList = document.getElementById('product-list');
             
-            // Renderizar productos en la página
             products.forEach(product => {
                 const productCard = `
                     <div class="col-md-6 col-lg-4 mb-4">
@@ -242,7 +239,6 @@
             const cartBody = document.getElementById('cart-body');
             const cartTotalElement = document.getElementById('cart-total');
 
-            // Event listener para los botones "Añadir al carrito"
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const card = e.target.closest('.card');
