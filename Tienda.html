@@ -6,7 +6,6 @@
     <title>Aroma Quisqueyano - El corazón del café dominicano</title>
 
     <link rel="icon" type="image/png" href="https://img.icons8.com/dusk/64/coffee-to-go.png">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -17,69 +16,30 @@
             --color-verde-oscuro: #004225;
             --color-verde-claro: #556B2F;
         }
+        body { background-color: var(--color-cafe-claro); font-family: 'Georgia', serif; }
+        .navbar { background-color: var(--color-marron); }
+        .navbar-brand, .nav-link { color: #F5F5DC !important; font-weight: bold; }
+        .btn-custom { background-color: var(--color-verde-oscuro); color: white; border: 2px solid var(--color-verde-oscuro); border-radius: 20px; font-weight: bold; padding: 8px 25px; transition: all 0.3s ease; }
+        .btn-custom:hover { background-color: var(--color-verde-claro); border-color: var(--color-verde-claro); }
+        .card { border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .card-title { color: var(--color-verde-oscuro); font-weight: bold; }
+        .card-price { color: var(--color-verde-claro); font-size: 1.2rem; font-weight: bold; }
+        .filter-section { background-color: #ffffff; padding: 20px; border-radius: 10px; }
+        .footer { background-color: var(--color-marron); color: #F5F5DC; padding: 2rem 0; margin-top: 40px; }
+        .modal-header { background-color: var(--color-marron); color: #F5F5DC; }
 
-        body {
-            background-color: var(--color-cafe-claro);
-            font-family: 'Georgia', serif;
-        }
-
-        .navbar {
-            background-color: var(--color-marron);
-        }
-
-        .navbar-brand, .nav-link {
-            color: #F5F5DC !important;
-            font-weight: bold;
-        }
-        
-        .btn-custom {
-            background-color: var(--color-verde-oscuro);
-            color: white;
-            border: 2px solid var(--color-verde-oscuro);
-            border-radius: 20px;
-            font-weight: bold;
-            padding: 8px 25px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-custom:hover {
-            background-color: var(--color-verde-claro);
-            border-color: var(--color-verde-claro);
-        }
-        
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .card-title {
-            color: var(--color-verde-oscuro); /* <-- Cambio aplicado aquí */
-            font-weight: bold;
-        }
-
-        .card-price {
-            color: var(--color-verde-claro);
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        
-        .filter-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .footer {
-            background-color: var(--color-marron);
-            color: #F5F5DC;
-            padding: 2rem 0;
-            margin-top: 40px;
-        }
-
-        .modal-header{
-             background-color: var(--color-marron);
-             color: #F5F5DC;
-        }
+        /* --- Estilos para Checkout e Historial --- */
+        .security-info { font-size: 0.9rem; }
+        .security-seals img { margin: 0 5px; opacity: 0.8; }
+        .input-group-text.card-logos { background-color: #ffffff; border-left: 0; }
+        .card-logos img { height: 22px; }
+        .summary-item { display: flex; justify-content: space-between; padding: 0.5rem 0; }
+        .summary-item.total { font-size: 1.2rem; font-weight: bold; border-top: 2px solid #eee; margin-top: 0.5rem; padding-top: 1rem;}
+        .payment-method-item { padding: 1rem; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
+        .payment-method-item:hover { background-color: #f8f9fa; }
+        .payment-method-item .form-check-input { margin-top: 0.5rem; }
+        .checkout-section { margin-bottom: 1.5rem; }
+        .dropdown-menu-dark .dropdown-item:hover { background-color: var(--color-verde-claro); }
     </style>
 </head>
 <body>
@@ -93,14 +53,11 @@
                         <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
                     </ul>
-                    <ul class="navbar-nav ms-auto d-flex flex-row">
-                        <li class="nav-item me-3">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#accountModal" title="Mi Cuenta"><i class="bi bi-person-fill fs-4"></i></a>
-                        </li>
+                    <ul class="navbar-nav ms-auto d-flex flex-row align-items-center">
+                        <li class="nav-item me-3" id="user-session-container"></li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal" title="Carrito">
-                                <i class="bi bi-cart-fill fs-4"></i>
-                                <span class="badge rounded-pill bg-danger" id="cart-count">0</span>
+                                <i class="bi bi-cart-fill fs-4"></i><span class="badge rounded-pill bg-danger" id="cart-count">0</span>
                             </a>
                         </li>
                     </ul>
@@ -111,178 +68,240 @@
 
     <main class="container my-5">
         <h1 class="text-center mb-4" style="color: var(--color-verde-oscuro);">Nuestra Selección de Cafés</h1>
-        
         <div class="row">
             <aside class="col-lg-3">
                 <div class="filter-section">
-                    <h4>Filtrar Productos</h4>
-                    <hr>
+                    <h4>Filtrar Productos</h4><hr>
                     <h5>Por Marca</h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="marca" id="starbucks">
-                        <label class="form-check-label" for="starbucks">Starbucks</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="marca" id="juanvaldez">
-                        <label class="form-check-label" for="juanvaldez">Juan Valdez</label>
-                    </div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="marca" id="starbucks"><label class="form-check-label" for="starbucks">Starbucks</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="marca" id="juanvaldez"><label class="form-check-label" for="juanvaldez">Juan Valdez</label></div>
                     <h5 class="mt-4">Mi Cuenta</h5>
-                     <div class="d-grid gap-2">
-                        <button class="btn btn-outline-secondary btn-sm" type="button">Ver Pedidos</button>
-                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal">Métodos de Pago</button>
-                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#accountModal">Crear Cuenta</button>
-                     </div>
+                     <div class="d-grid gap-2" id="account-sidebar-buttons">
+                         </div>
                 </div>
             </aside>
-
-            <section class="col-lg-9">
-                <div class="row" id="product-list">
-                    </div>
-            </section>
+            <section class="col-lg-9"><div class="row" id="product-list"></div></section>
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container text-center">
-            <p>&copy; 2025 Aroma Quisqueyano. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <footer class="footer"><div class="container text-center"><p>&copy; 2025 Aroma Quisqueyano. Todos los derechos reservados.</p></div></footer>
 
     <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="bi bi-cart3"></i> Tu Carrito</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body" id="cart-body"></div><div class="modal-footer"><h4>Total: <span id="cart-total">$0.00</span></h4><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button><button type="button" class="btn btn-custom" id="proceed-to-checkout-btn">Proceder al Pago</button></div></div></div>
+    </div>
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="bi bi-credit-card-fill"></i> Añadir Método de Pago</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="payment-form"><div class="mb-3"><label for="cardName" class="form-label">Nombre del titular</label><input type="text" class="form-control" id="cardName" placeholder="Juan Pérez" required></div><div class="mb-3"><label for="cardNumber" class="form-label">Número de Tarjeta</label><div class="input-group"><input type="text" class="form-control" id="cardNumber" placeholder="---- ---- ---- ----" required><span class="input-group-text card-logos"><img src="https://i.imgur.com/8IKEClk.png" alt="Visa" height="20"><img src="https://i.imgur.com/x2sISRQ.png" alt="Mastercard" class="ms-1" height="20"></span></div></div><div class="row"><div class="col-md-7 mb-3"><label for="cardExpiry" class="form-label">Vencimiento</label><input type="text" class="form-control" id="cardExpiry" placeholder="MM/AA" required></div><div class="col-md-5 mb-3"><label for="cardCVC" class="form-label">CVC <i class="bi bi-question-circle" data-bs-toggle="tooltip" title="Los 3-4 dígitos en el reverso de su tarjeta."></i></label><input type="text" class="form-control" id="cardCVC" placeholder="123" required></div></div><div class="d-grid"><button type="submit" class="btn btn-custom w-100"><i class="bi bi-safe-fill"></i> Guardar de forma segura</button></div></form></div><div class="modal-footer d-block text-center text-muted"><div class="security-info"><i class="bi bi-lock-fill"></i> Transacción segura y encriptada.</div><div class="security-seals mt-2"><img src="https://i.imgur.com/UImUE0A.png" alt="Norton Secured" height="30"><img src="https://i.imgur.com/OHe3bJK.jpeg" alt="PCI Compliant" height="30"></div></div></div></div>
+    </div>
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-xl"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="bi bi-bag-check-fill"></i> Finalizar Compra</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="checkout-form"><div class="row"><div class="col-lg-4 checkout-section"><h5><i class="bi bi-truck"></i> Información de Envío</h5><div class="mb-3"><label for="shipping-province" class="form-label">Provincia</label><input type="text" class="form-control" id="shipping-province" value="Santo Domingo" required></div><div class="mb-3"><label for="shipping-city" class="form-label">Ciudad o Municipio</label><input type="text" class="form-control" id="shipping-city" value="Distrito Nacional" required></div><div class="mb-3"><label for="shipping-address" class="form-label">Dirección</label><textarea class="form-control" id="shipping-address" rows="2" required>Av. Winston Churchill #123</textarea></div><div class="mb-3"><label for="shipping-method" class="form-label">Tipo de Envío</label><select class="form-select" id="shipping-method"><option value="0.00" selected>Envío Estándar (3-5 días) - Gratis</option><option value="5.00">Envío Expreso (1-2 días) - $5.00</option></select></div></div><div class="col-lg-4 checkout-section"><h5><i class="bi bi-credit-card"></i> Método de Pago</h5><div id="payment-methods-selection"></div><div class="d-grid mt-3"><button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal"><i class="bi bi-plus-circle"></i> Añadir nueva tarjeta</button></div></div><div class="col-lg-4 checkout-section"><h5><i class="bi bi-receipt"></i> Resumen del Pedido</h5><div id="checkout-summary-items" class="small"></div><hr><div id="checkout-summary-total"></div></div></div></form></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-custom" id="confirm-purchase-btn"><i class="bi bi-shield-check"></i> Confirmar y Pagar</button></div></div></div>
+    </div>
+    <div class="modal fade" id="accountModal" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Crea tu Cuenta</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form><div class="mb-3"><input type="email" class="form-control" placeholder="Correo electrónico"></div><div class="mb-3"><input type="password" class="form-control" placeholder="Contraseña"></div><button type="submit" class="btn btn-custom">Crear Cuenta</button></form></div></div></div>
+    </div>
+    <div class="modal fade" id="orderHistoryModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="bi bi-cart3"></i> Tu Carrito de Compras</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="cart-body"></div>
-                <div class="modal-footer">
-                    <h4>Total: <span id="cart-total">$0.00</span></h4>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button>
-                    <button type="button" class="btn btn-custom">Proceder al Pago</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="paymentModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Métodos de Pago</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Número de Tarjeta</label>
-                            <input type="text" class="form-control" placeholder="**** **** **** ****">
-                        </div>
-                        <button type="submit" class="btn btn-custom">Guardar Método de Pago</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="accountModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Crea tu Cuenta</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3"><input type="email" class="form-control" placeholder="Correo electrónico"></div>
-                        <div class="mb-3"><input type="password" class="form-control" placeholder="Contraseña"></div>
-                        <button type="submit" class="btn btn-custom">Crear Cuenta</button>
-                    </form>
-                </div>
+                <div class="modal-header"><h5 class="modal-title"><i class="bi bi-receipt-cutoff"></i> Historial de Pedidos</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body" id="order-history-body"></div>
+                <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button></div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const products = [
-                { id: 1, name: 'Starbucks Pike Place', price: 14.50, img: 'https://i.imgur.com/T0CxVfu.png', desc: 'Notas de cacao y nueces tostadas, balanceado y suave.' },
-                { id: 2, name: 'Starbucks Caffè Verona', price: 15.00, img: 'https://i.imgur.com/UZ8THz1.png', desc: 'Tostado oscuro con notas de cacao amargo y azúcar caramelizada.' },
-                { id: 3, name: 'Starbucks Blonde Espresso', price: 15.50, img: 'https://i.imgur.com/4CZnRsH.png', desc: 'Tostado ligero, suave y dulcemente vibrante.' },
-                { id: 4, name: 'Juan Valdez Sierra Nevada', price: 18.00, img: 'https://i.imgur.com/e7b8NCB.png', desc: 'Café orgánico con notas intensas a chocolate negro y nueces.' },
-                { id: 5, name: 'Juan Valdez Cumbre', price: 17.50, img: 'https://i.imgur.com/nnpAKCt.jpeg', desc: 'Tostado oscuro e intenso, ideal para un espresso perfecto.' },
-                { id: 6, name: 'Juan Valdez Antioquia', price: 16.80, img: 'https://i.imgur.com/udlO2KJ.jpeg', desc: 'Balanceado con notas dulces a panela y frutos rojos.' }
-            ];
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- INICIALIZACIÓN Y DATOS DE EJEMPLO ---
+        const tooltipTriggerList = [...document.querySelectorAll('[data-bs-toggle="tooltip"]')];
+        tooltipTriggerList.forEach(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-            const productList = document.getElementById('product-list');
-            
-            products.forEach(product => {
-                const productCard = `
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100 text-center" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-img="${product.img}">
-                            <img src="${product.img}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: contain; padding: 10px;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">${product.name}</h5>
-                                <p class="card-text small">${product.desc}</p>
-                                <p class="card-price mt-auto">$${product.price.toFixed(2)}</p>
-                                <button class="btn btn-custom add-to-cart">Añadir al carrito</button>
-                            </div>
-                        </div>
+        const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+        const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+        const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        const orderHistoryModal = new bootstrap.Modal(document.getElementById('orderHistoryModal'));
+        
+        const products = [
+            { id: 1, name: 'Starbucks Pike Place', price: 14.50, img: 'https://i.imgur.com/T0CxVfu.png', desc: 'Notas de cacao y nueces tostadas.' },
+            { id: 2, name: 'Starbucks Caffè Verona', price: 15.00, img: 'https://i.imgur.com/UZ8THz1.png', desc: 'Tostado oscuro con notas de cacao.' },
+            { id: 3, name: 'Starbucks Blonde Espresso', price: 15.50, img: 'https://i.imgur.com/4CZnRsH.png', desc: 'Tostado ligero, suave y vibrante.' },
+            { id: 4, name: 'Juan Valdez Sierra Nevada', price: 18.00, img: 'https://i.imgur.com/e7b8NCB.png', desc: 'Café orgánico con notas a chocolate.' },
+            { id: 5, name: 'Juan Valdez Cumbre', price: 17.50, img: 'https://i.imgur.com/nnpAKCt.jpeg', desc: 'Tostado oscuro, ideal para espresso.' },
+            { id: 6, name: 'Juan Valdez Antioquia', price: 16.80, img: 'https://i.imgur.com/udlO2KJ.jpeg', desc: 'Balanceado con notas a panela.' }
+        ];
+
+        let cart = [];
+        let paymentMethods = [];
+        let orderHistory = [ // Historial de pedidos de ejemplo
+            { id: 'AQ-1025', date: '2025-10-15', items: [products[3], products[4]], total: 41.89 },
+            { id: 'AQ-1024', date: '2025-09-28', items: [products[0]], total: 17.11 }
+        ];
+        let currentUser = null;
+        const ITBIS_RATE = 0.18;
+
+        // --- LÓGICA DE SESIÓN DE USUARIO ---
+        function loginUser(username) {
+            currentUser = { name: username };
+            renderUIForSession();
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            renderUIForSession();
+        }
+
+        function renderUIForSession() {
+            const userContainer = document.getElementById('user-session-container');
+            const sidebarContainer = document.getElementById('account-sidebar-buttons');
+            if (currentUser) {
+                // UI Logeado
+                userContainer.innerHTML = `
+                    <div class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-check-fill"></i> Hola, ${currentUser.name}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" id="view-orders-link"><i class="bi bi-receipt me-2"></i>Ver Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-link"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+                        </ul>
                     </div>`;
-                productList.innerHTML += productCard;
-            });
+                sidebarContainer.innerHTML = `
+                    <button class="btn btn-outline-secondary btn-sm" type="button" id="view-orders-sidebar-btn">Ver Pedidos</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal">Métodos de Pago</button>`;
+                
+                document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); logoutUser(); });
+                document.getElementById('view-orders-link').addEventListener('click', (e) => { e.preventDefault(); showOrderHistory(); });
+                document.getElementById('view-orders-sidebar-btn').addEventListener('click', showOrderHistory);
 
-            let cart = [];
-            const cartCountElement = document.getElementById('cart-count');
-            const cartBody = document.getElementById('cart-body');
-            const cartTotalElement = document.getElementById('cart-total');
-
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const card = e.target.closest('.card');
-                    const product = {
-                        id: card.dataset.id,
-                        name: card.dataset.name,
-                        price: parseFloat(card.dataset.price),
-                        img: card.dataset.img
-                    };
-                    cart.push(product);
-                    updateCart();
-                });
-            });
-
-            function updateCart() {
-                cartCountElement.textContent = cart.length;
-                if (cart.length === 0) {
-                    cartBody.innerHTML = '<p class="text-center">Tu carrito está vacío.</p>';
-                } else {
-                    cartBody.innerHTML = cart.map((item, index) => `
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <img src="${item.img}" width="60" class="rounded">
-                            <span class="flex-grow-1 ms-3">${item.name}</span>
-                            <strong>$${item.price.toFixed(2)}</strong>
-                            <button class="btn btn-danger btn-sm ms-3 remove-from-cart" data-index="${index}">&times;</button>
-                        </div>
-                    `).join('');
-                }
-
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                cartTotalElement.textContent = `$${total.toFixed(2)}`;
-                addRemoveListeners();
+            } else {
+                // UI Deslogeado
+                userContainer.innerHTML = `<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#accountModal" title="Mi Cuenta"><i class="bi bi-person-fill fs-4"></i></a>`;
+                sidebarContainer.innerHTML = `
+                     <button class="btn btn-outline-secondary btn-sm" type="button" disabled>Ver Pedidos</button>
+                     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal">Métodos de Pago</button>
+                     <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#accountModal">Crear Cuenta</button>`;
             }
+        }
 
-            function addRemoveListeners() {
-                document.querySelectorAll('.remove-from-cart').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const index = e.target.dataset.index;
-                        cart.splice(index, 1);
-                        updateCart();
-                    });
-                });
+        // --- LÓGICA DE HISTORIAL DE PEDIDOS ---
+        function showOrderHistory() {
+            const historyBody = document.getElementById('order-history-body');
+            if(orderHistory.length === 0) {
+                historyBody.innerHTML = '<p class="text-center">Aún no tienes pedidos en tu historial.</p>';
+            } else {
+                historyBody.innerHTML = `
+                    <div class="accordion" id="orderAccordion">
+                        ${orderHistory.map((order, index) => `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button ${index > 0 ? 'collapsed' : ''}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${order.id}">
+                                        <span class="fw-bold me-3">Orden #${order.id}</span>
+                                        <span class="text-muted me-auto">Fecha: ${order.date}</span>
+                                        <span class="fw-bold">Total: $${order.total.toFixed(2)}</span>
+                                    </button>
+                                </h2>
+                                <div id="collapse-${order.id}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" data-bs-parent="#orderAccordion">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            ${order.items.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`;
             }
+            orderHistoryModal.show();
+        }
+
+        // --- LÓGICA DE PRODUCTOS Y CARRITO ---
+        const productList = document.getElementById('product-list');
+        products.forEach(product => {
+            productList.innerHTML += `<div class="col-md-6 col-lg-4 mb-4"><div class="card h-100 text-center" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-img="${product.img}"><img src="${product.img}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: contain; padding: 10px;"><div class="card-body d-flex flex-column"><h5 class="card-title">${product.name}</h5><p class="card-text small">${product.desc}</p><p class="card-price mt-auto">$${product.price.toFixed(2)}</p><button class="btn btn-custom add-to-cart">Añadir al carrito</button></div></div></div>`;
         });
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.card');
+                cart.push({ id: card.dataset.id, name: card.dataset.name, price: parseFloat(card.dataset.price), img: card.dataset.img });
+                updateCart();
+            });
+        });
+
+        function updateCart() {
+            document.getElementById('cart-count').textContent = cart.length;
+            const cartBody = document.getElementById('cart-body');
+            if (cart.length === 0) { cartBody.innerHTML = '<p class="text-center">Tu carrito está vacío.</p>'; } 
+            else { cartBody.innerHTML = cart.map((item, index) => `<div class="d-flex justify-content-between align-items-center mb-3"><img src="${item.img}" width="60" class="rounded"><span class="flex-grow-1 ms-3">${item.name}</span><strong>$${item.price.toFixed(2)}</strong><button class="btn btn-danger btn-sm ms-3 remove-from-cart" data-index="${index}">&times;</button></div>`).join(''); }
+            document.getElementById('cart-total').textContent = `$${cart.reduce((s, i) => s + i.price, 0).toFixed(2)}`;
+            addRemoveListeners();
+        }
+
+        function addRemoveListeners() {
+            document.querySelectorAll('.remove-from-cart').forEach(b => { b.addEventListener('click', (e) => { cart.splice(e.target.dataset.index, 1); updateCart(); }); });
+        }
+        
+        // --- LÓGICA DE CHECKOUT ---
+        document.getElementById('proceed-to-checkout-btn').addEventListener('click', () => {
+            if (cart.length > 0) { cartModal.hide(); showCheckout(); checkoutModal.show(); } else { alert('Tu carrito está vacío.'); }
+        });
+
+        function showCheckout() {
+            document.getElementById('checkout-summary-items').innerHTML = cart.map(item => `<div class="summary-item"><span>${item.name}</span><strong>$${item.price.toFixed(2)}</strong></div>`).join('');
+            updateCheckoutTotals();
+            renderPaymentMethods();
+        }
+
+        function updateCheckoutTotals() {
+            const subtotal = cart.reduce((s, i) => s + i.price, 0);
+            const shippingCost = parseFloat(document.getElementById('shipping-method').value);
+            const itbis = subtotal * ITBIS_RATE;
+            const total = subtotal + itbis + shippingCost;
+            document.getElementById('checkout-summary-total').innerHTML = `<div class="summary-item"><span>Subtotal:</span><span>$${subtotal.toFixed(2)}</span></div><div class="summary-item"><span>ITBIS (18%):</span><span>$${itbis.toFixed(2)}</span></div><div class="summary-item"><span>Envío:</span><span>$${shippingCost.toFixed(2)}</span></div><div class="summary-item total"><span>Total a Pagar:</span><span id="final-total">$${total.toFixed(2)}</span></div>`;
+        }
+        
+        document.getElementById('shipping-method').addEventListener('change', updateCheckoutTotals);
+
+        function renderPaymentMethods() {
+            const paymentMethodsSelection = document.getElementById('payment-methods-selection');
+            if (paymentMethods.length === 0) { paymentMethodsSelection.innerHTML = `<div class="alert alert-warning text-center p-2">No tienes métodos de pago guardados.</div>`; }
+            else { paymentMethodsSelection.innerHTML = paymentMethods.map((c, i) => `<div class="form-check payment-method-item"><input class="form-check-input" type="radio" name="paymentMethod" id="c-${i}" value="${i}" ${i===0?'checked':''}><label class="form-check-label w-100" for="c-${i}"><div class="d-flex justify-content-between"><span><strong>${c.type}</strong> que termina en ${c.last4}</span><small>${c.expiry}</small></div></label></div>`).join(''); }
+        }
+
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cardNum = document.getElementById('cardNumber').value;
+            paymentMethods.push({ name: document.getElementById('cardName').value, last4: cardNum.slice(-4), expiry: document.getElementById('cardExpiry').value, type: cardNum.startsWith('4') ? 'Visa' : 'Mastercard' });
+            alert(`Tarjeta guardada con éxito.`);
+            this.reset();
+            paymentModal.hide();
+            if (document.getElementById('checkoutModal').classList.contains('show')) { renderPaymentMethods(); }
+        });
+        
+        document.getElementById('confirm-purchase-btn').addEventListener('click', () => {
+            const checkoutForm = document.getElementById('checkout-form');
+            if (!checkoutForm.checkValidity()) { checkoutForm.reportValidity(); return; }
+            if (paymentMethods.length === 0 || !document.querySelector('input[name="paymentMethod"]:checked')) { alert('Por favor, añade y/o selecciona un método de pago.'); return; }
+
+            const totalString = document.getElementById('final-total').textContent.replace('$', '');
+            const newOrder = {
+                id: `AQ-${1026 + orderHistory.length}`,
+                date: new Date().toISOString().slice(0, 10),
+                items: [...cart],
+                total: parseFloat(totalString)
+            };
+            orderHistory.unshift(newOrder); // Añadir al inicio de la lista
+            
+            alert('¡Gracias por tu compra! Tu pedido ha sido procesado y añadido a tu historial.');
+            cart = [];
+            updateCart();
+            checkoutModal.hide();
+        });
+
+        // --- INICIAR LA APLICACIÓN ---
+        loginUser("Prueba"); // Inicia sesión con el usuario "Prueba" por defecto
+        updateCart();
+    });
     </script>
 </body>
 </html>
