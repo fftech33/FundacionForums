@@ -1,0 +1,1108 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<title>Gestor IPTV</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f2f2f2;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:10px 15px;
+cursor:pointer;
+border:none;
+background:#007bff;
+color:white;
+border-radius:5px;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+.delete{
+background:#dc3545;
+}
+
+.delete:hover{
+background:#a71d2a;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:10px;
+text-align:left;
+}
+
+th{
+background:#eee;
+}
+
+a{
+color:#007bff;
+}
+
+.search{
+width:98%;
+margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Lista de Canales IPTV</h2>
+
+<input id="nombre" placeholder="Nombre del canal">
+<input id="id" placeholder="ID del canal">
+<button onclick="agregar()">Agregar</button>
+
+<br><br>
+
+<input class="search" id="buscar" placeholder="Buscar canal..." onkeyup="buscarCanal()">
+
+<table>
+
+<thead>
+<tr>
+<th>Nombre</th>
+<th>ID</th>
+<th>Link</th>
+<th>Acción</th>
+</tr>
+</thead>
+
+<tbody id="lista">
+<tr>
+<td>CREO TV</td>
+<td>a07z</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a07z/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a07z/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(0)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TE QUIERO TV</td>
+<td>a080</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a080/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a080/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(1)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>URBANO TV</td>
+<td>a081</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a081/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a081/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(2)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO MOVIES</td>
+<td>a083</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a083/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a083/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(3)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TAURUS </td>
+<td>a084</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a084/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a084/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(4)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>Chakra tv</td>
+<td>a085</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a085/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a085/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(5)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NOVA</td>
+<td>a086</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a086/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a086/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(6)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO SPORTS </td>
+<td>a087</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a087/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a087/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(7)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO KIDS</td>
+<td>a089</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a089/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a089/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(8)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO FE </td>
+<td>a08a</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08a/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08a/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(9)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>BONITA TV</td>
+<td>a08b</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08b/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08b/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(10)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>BOLIWOOD</td>
+<td>a08d</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08d/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08d/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(11)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>OLD MOVIES</td>
+<td>a08e</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08e/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08e/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(12)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CARIBE TV</td>
+<td>a08f</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08f/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08f/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(13)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>SCARE MOVIES</td>
+<td>a08g</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08g/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08g/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(14)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ZCREO</td>
+<td>a08h</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08h/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08h/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(15)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>SALSA VIVE TV</td>
+<td>a08i</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08i/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08i/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(16)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MOSCOW TV</td>
+<td>a08j</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08j/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08j/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(17)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO SERIES</td>
+<td>a08k</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08k/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08k/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(18)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO DOCUMENTALES </td>
+<td>a08l</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08l/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08l/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(19)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ADULTOS 5---Chiquitas</td>
+<td>a082</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a082/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a082/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(20)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>AGRORURAL</td>
+<td>a098</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a098/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a098/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(21)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>AMARTE TV APP</td>
+<td>ARMARTETV</td>
+<td><a href="https://iptv.telemontv.com:7009/play/ARMARTETV/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/ARMARTETV/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(22)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CINE AMOR</td>
+<td>a099</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a099/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a099/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(23)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ROMANTICAS TV</td>
+<td>a09a</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09a/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09a/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(24)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TE QUIERO TV+</td>
+<td>a09b</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09b/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09b/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(25)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>EXITOSOS</td>
+<td>a09c</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09c/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09c/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(26)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO HOT</td>
+<td>a09d</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09d/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09d/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(27)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>FOOD INTERNATIONAL </td>
+<td>a09e</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09e/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09e/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(28)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MARTIAL X</td>
+<td>a09g</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09g/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09g/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(29)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>COWBOY CINEMA</td>
+<td>a09h</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09h/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09h/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(30)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>COMEDY MAX</td>
+<td>a09i</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09i/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09i/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(31)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>FAMILY CHANNEL</td>
+<td>a09j</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09j/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09j/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(32)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ANIMA KIDS</td>
+<td>a09l</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09l/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09l/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(33)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>REINO CARTOON</td>
+<td>a09m</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09m/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09m/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(34)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MISTICO TV</td>
+<td>a09n</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09n/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09n/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(35)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>SILVER FLOWER</td>
+<td>a09o</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09o/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09o/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(36)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NEXT TV </td>
+<td>a09p</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09p/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09p/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(37)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>FASTLINE</td>
+<td>a09w</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09w/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09w/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(38)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>PEQUE TV</td>
+<td>a0bs</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bs/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bs/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(39)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NOVEMAX</td>
+<td>NOVEMAX</td>
+<td><a href="https://iptv.telemontv.com:7009/play/NOVEMAX/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/NOVEMAX/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(40)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NEXTSCIENCE</td>
+<td>a09q</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09q/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09q/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(41)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>EPICRISE CINEMA</td>
+<td>a0ar</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0ar/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0ar/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(42)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>QUANTUM CINEMA</td>
+<td>a0c1</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0c1/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0c1/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(43)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>HERE MAX CHANNEL</td>
+<td>a0c0</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0c0/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0c0/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(44)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>INSPIRA +</td>
+<td>a0bz</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bz/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bz/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(45)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>WARZONE CHANNEL</td>
+<td>a0by</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0by/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0by/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(46)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>APOKALIPSIS</td>
+<td>a0bx</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bx/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bx/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(47)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NEOTOON JUNIOR TV</td>
+<td>a0bw</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bw/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bw/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(48)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TAKU TV</td>
+<td>a0bv</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bv/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bv/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(49)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>KIDSTORY TV</td>
+<td>a0bu</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bu/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bu/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(50)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>STORYLAND</td>
+<td>a0bt</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bt/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bt/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(51)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>LOL CHANNEL TV</td>
+<td>a0br</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0br/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0br/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(52)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ZONA X TV</td>
+<td>a0bq</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bq/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bq/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(53)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MINIVERSO TV</td>
+<td>a0bp</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bp/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bp/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(54)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>PLAYKID TV</td>
+<td>a0bo</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bo/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bo/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(55)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MAPA</td>
+<td>a0bn</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bn/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bn/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(56)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO SERIES PLUS</td>
+<td>a0bm</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bm/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bm/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(57)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CRIPTO TV</td>
+<td>a0bl</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bl/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bl/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(58)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>PET GO</td>
+<td>a0bk</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bk/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bk/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(59)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>GO SHORT</td>
+<td>a0bf</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bf/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bf/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(60)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>PLAYGO</td>
+<td>a0be</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0be/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0be/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(61)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>E-GAMERSS TV</td>
+<td>a0b9</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b9/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b9/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(62)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>FRAME TV</td>
+<td>a0b8</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b8/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b8/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(63)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TECNOLATINO TV </td>
+<td>a0bj</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bj/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bj/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(64)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>KO TV</td>
+<td>a0bh</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bh/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bh/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(65)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>HTV</td>
+<td>a0bd</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0bd/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0bd/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(66)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TELENAGUA</td>
+<td>TELENAGUA</td>
+<td><a href="https://iptv.telemontv.com:7009/play/TELENAGUA/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/TELENAGUA/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(67)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MONTV RADIO </td>
+<td>MONTVRADIO </td>
+<td><a href="https://iptv.telemontv.com:7009/play/MONTVRADIO /index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/MONTVRADIO /index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(68)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MONTV-MUSIC</td>
+<td>MONTVMUSIC</td>
+<td><a href="https://iptv.telemontv.com:7009/play/MONTVMUSIC/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/MONTVMUSIC/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(69)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>COLORVISION </td>
+<td>a0am</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0am/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0am/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(70)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TELEMON</td>
+<td>TELEMON</td>
+<td><a href="https://iptv.telemontv.com:7009/play/TELEMON/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/TELEMON/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(71)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TELECABRERA</td>
+<td>TELECABRERA</td>
+<td><a href="https://iptv.telemontv.com:7009/play/TELECABRERA/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/TELECABRERA/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(72)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MONTV- CINE</td>
+<td>MONTVCINE</td>
+<td><a href="https://iptv.telemontv.com:7009/play/MONTVCINE/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/MONTVCINE/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(73)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ALIENTO VISION</td>
+<td>a059</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a059/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a059/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(74)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MARIA VISION</td>
+<td>a08u</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08u/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08u/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(75)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CANAL LUZ </td>
+<td>a06d</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a06d/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a06d/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(76)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>LA VOZ DE MARIA</td>
+<td>a05d</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a05d/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a05d/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(77)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>UNIVISION</td>
+<td>a04j</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a04j/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a04j/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(78)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TLNOVELAS </td>
+<td>TLNOVELAS</td>
+<td><a href="https://iptv.telemontv.com:7009/play/TLNOVELAS/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/TLNOVELAS/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(79)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CANAL DE LAS ESTRELLAS</td>
+<td>CANALDELASESTRELLAS</td>
+<td><a href="https://iptv.telemontv.com:7009/play/CANALDELASESTRELLAS/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/CANALDELASESTRELLAS/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(80)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>E!</td>
+<td>E!</td>
+<td><a href="https://iptv.telemontv.com:7009/play/E!/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/E!/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(81)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TNT NOVELAS</td>
+<td>a0az</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0az/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0az/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(82)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>LIFETIME</td>
+<td>LIFETIME</td>
+<td><a href="https://iptv.telemontv.com:7009/play/LIFETIME/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/LIFETIME/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(83)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY H&amp;H</td>
+<td>a04l</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a04l/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a04l/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(84)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISTRITO COMEDIA</td>
+<td>DISTRITOCOMEDIA</td>
+<td><a href="https://iptv.telemontv.com:7009/play/DISTRITOCOMEDIA/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/DISTRITOCOMEDIA/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(85)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>BONITA TV</td>
+<td>a08b</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a08b/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a08b/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(86)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>HOLA TV</td>
+<td>a01m</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a01m/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a01m/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(87)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TELEMUNDO</td>
+<td>a06h</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a06h/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a06h/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(88)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>UNIVERSAL</td>
+<td>a015</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a015/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a015/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(89)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>VISION NDV</td>
+<td>a067</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a067/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a067/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(90)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MAS CHIC</td>
+<td>a00y</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a00y/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a00y/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(91)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>FLIMS AND ARTS</td>
+<td>a00u</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a00u/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a00u/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(92)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>AZ CORAZON</td>
+<td>a070</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a070/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a070/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(93)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>SILVER FLOWERS</td>
+<td>SILVERFFLOWERAPP</td>
+<td><a href="https://iptv.telemontv.com:7009/play/SILVERFFLOWERAPP/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/SILVERFFLOWERAPP/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(94)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TAURUS TV</td>
+<td>a084</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a084/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a084/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(95)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CREO KIDS</td>
+<td>a089</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a089/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a089/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(96)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY KIDS</td>
+<td>DISCOVERYKID</td>
+<td><a href="https://iptv.telemontv.com:7009/play/DISCOVERYKID/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/DISCOVERYKID/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(97)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TOONCAST</td>
+<td>a09t</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09t/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09t/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(98)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>BABY TV</td>
+<td>a061</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a061/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a061/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(99)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>REINO CARTOON</td>
+<td>REINOCARTOONAPP</td>
+<td><a href="https://iptv.telemontv.com:7009/play/REINOCARTOONAPP/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/REINOCARTOONAPP/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(100)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISNEY</td>
+<td>a029</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a029/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a029/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(101)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISNEY JR</td>
+<td>a026</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a026/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a026/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(102)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ADRENALINA SPORTS</td>
+<td>ADRENALINASPORTN</td>
+<td><a href="https://iptv.telemontv.com:7009/play/ADRENALINASPORTN/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/ADRENALINASPORTN/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(103)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>NBATV</td>
+<td>NBATV</td>
+<td><a href="https://iptv.telemontv.com:7009/play/NBATV/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/NBATV/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(104)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ESPN 5</td>
+<td>a0b0</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b0/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b0/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(105)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ESPN 4</td>
+<td>a0b1</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b1/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b1/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(106)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ESPN 6</td>
+<td>a0b2</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b2/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b2/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(107)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>RED BULL TV</td>
+<td>a01b</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a01b/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a01b/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(108)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>1 Baseball Network</td>
+<td>a06a</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a06a/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a06a/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(109)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>GOLF CHANNEL</td>
+<td>a00x</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a00x/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a00x/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(110)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY SCIENCE</td>
+<td>a0a1</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0a1/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0a1/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(111)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>A&amp;E</td>
+<td>a04k</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a04k/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a04k/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(112)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY THEATER</td>
+<td>a013</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a013/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a013/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(113)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY</td>
+<td>DISCOVERYHD</td>
+<td><a href="https://iptv.telemontv.com:7009/play/DISCOVERYHD/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/DISCOVERYHD/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(114)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DISCOVERY ID</td>
+<td>a0b3</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b3/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b3/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(115)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>HISTORY HD</td>
+<td>a0b4</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b4/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b4/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(116)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>ANIMAL PLANET</td>
+<td>a05h</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a05h/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a05h/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(117)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>HISTORY 2</td>
+<td>a05g</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a05g/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a05g/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(118)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>TLC</td>
+<td>a0b5</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b5/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b5/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(119)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>DW TV</td>
+<td>a04f</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a04f/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a04f/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(120)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>RAI ITALIA</td>
+<td>a05o</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a05o/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a05o/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(121)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>RT</td>
+<td>a001</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a001/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a001/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(122)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>AGROTENDENCIA</td>
+<td>a03d</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a03d/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a03d/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(123)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>MULTIPREMIER</td>
+<td>a018</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a018/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a018/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(124)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>GOLDEN EDGE</td>
+<td>a05i</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a05i/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a05i/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(125)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>GOLDEN</td>
+<td>a0b6</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a0b6/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a0b6/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(126)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>CINE AMOR</td>
+<td>CINEAMOR</td>
+<td><a href="https://iptv.telemontv.com:7009/play/CINEAMOR/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/CINEAMOR/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(127)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>STAR CHANNEL</td>
+<td>a09x</td>
+<td><a href="https://iptv.telemontv.com:7009/play/a09x/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/a09x/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(128)">Eliminar</button></td>
+</tr>
+
+<tr>
+<td>AXN </td>
+<td>AXN</td>
+<td><a href="https://iptv.telemontv.com:7009/play/AXN/index.m3u8" target="_blank">https://iptv.telemontv.com:7009/play/AXN/index.m3u8</a></td>
+<td><button class="delete" onclick="eliminar(129)">Eliminar</button></td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let base = "https://iptv.telemontv.com:7009/play/";
+
+function cargar(){
+
+let datos = JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+document.getElementById("lista").innerHTML="";
+
+datos.forEach((item,index)=>{
+mostrar(item,index);
+});
+
+}
+
+function agregar(){
+
+let nombre=document.getElementById("nombre").value;
+let id=document.getElementById("id").value;
+
+if(nombre=="" || id==""){
+alert("Completa los datos");
+return;
+}
+
+let datos=JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+datos.push({nombre,id});
+
+localStorage.setItem("iptvLista",JSON.stringify(datos));
+
+document.getElementById("nombre").value="";
+document.getElementById("id").value="";
+
+cargar();
+
+}
+
+function mostrar(item,index){
+
+let tabla=document.getElementById("lista");
+
+let link=base+item.id+"/index.m3u8";
+
+let fila=`
+<tr>
+<td>${item.nombre}</td>
+<td>${item.id}</td>
+<td><a href="${link}" target="_blank">${link}</a></td>
+<td><button class="delete" onclick="eliminar(${index})">Eliminar</button></td>
+</tr>
+`;
+
+tabla.innerHTML+=fila;
+
+}
+
+function eliminar(index){
+
+let datos=JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+datos.splice(index,1);
+
+localStorage.setItem("iptvLista",JSON.stringify(datos));
+
+cargar();
+
+}
+
+function buscarCanal(){
+
+let input=document.getElementById("buscar").value.toLowerCase();
+
+let filas=document.querySelectorAll("#lista tr");
+
+filas.forEach(fila=>{
+
+let texto=fila.innerText.toLowerCase();
+
+fila.style.display=texto.includes(input) ? "" : "none";
+
+});
+
+}
+
+cargar();
+
+</script>
+
+</body>
+</html>
