@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Gestor IPTV</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f2f2f2;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:10px 15px;
+cursor:pointer;
+border:none;
+background:#007bff;
+color:white;
+border-radius:5px;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+.delete{
+background:#dc3545;
+}
+
+.delete:hover{
+background:#a71d2a;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:10px;
+text-align:left;
+}
+
+th{
+background:#eee;
+}
+
+a{
+color:#007bff;
+}
+
+.search{
+width:98%;
+margin-bottom:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Lista de Canales IPTV</h2>
+
+<input id="nombre" placeholder="Nombre del canal">
+<input id="id" placeholder="ID del canal">
+<button onclick="agregar()">Agregar</button>
+
+<br><br>
+
+<input class="search" id="buscar" placeholder="Buscar canal..." onkeyup="buscarCanal()">
+
+<table>
+
+<thead>
+<tr>
+<th>Nombre</th>
+<th>ID</th>
+<th>Link</th>
+<th>Acción</th>
+</tr>
+</thead>
+
+<tbody id="lista"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let base = "https://iptv.telemontv.com:7009/play/";
+
+function cargar(){
+
+let datos = JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+document.getElementById("lista").innerHTML="";
+
+datos.forEach((item,index)=>{
+mostrar(item,index);
+});
+
+}
+
+function agregar(){
+
+let nombre=document.getElementById("nombre").value;
+let id=document.getElementById("id").value;
+
+if(nombre=="" || id==""){
+alert("Completa los datos");
+return;
+}
+
+let datos=JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+datos.push({nombre,id});
+
+localStorage.setItem("iptvLista",JSON.stringify(datos));
+
+document.getElementById("nombre").value="";
+document.getElementById("id").value="";
+
+cargar();
+
+}
+
+function mostrar(item,index){
+
+let tabla=document.getElementById("lista");
+
+let link=base+item.id+"/index.m3u8";
+
+let fila=`
+<tr>
+<td>${item.nombre}</td>
+<td>${item.id}</td>
+<td><a href="${link}" target="_blank">${link}</a></td>
+<td><button class="delete" onclick="eliminar(${index})">Eliminar</button></td>
+</tr>
+`;
+
+tabla.innerHTML+=fila;
+
+}
+
+function eliminar(index){
+
+let datos=JSON.parse(localStorage.getItem("iptvLista")) || [];
+
+datos.splice(index,1);
+
+localStorage.setItem("iptvLista",JSON.stringify(datos));
+
+cargar();
+
+}
+
+function buscarCanal(){
+
+let input=document.getElementById("buscar").value.toLowerCase();
+
+let filas=document.querySelectorAll("#lista tr");
+
+filas.forEach(fila=>{
+
+let texto=fila.innerText.toLowerCase();
+
+fila.style.display=texto.includes(input) ? "" : "none";
+
+});
+
+}
+
+cargar();
+
+</script>
+
+</body>
+</html>
